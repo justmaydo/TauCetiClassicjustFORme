@@ -679,6 +679,9 @@
 		var/mob/living/M = current
 		if(M.actions)
 			for(var/datum/action/A in M.actions)
+				// item actions stay with the old body if its items didn't follow the mind
+				if(istype(A, /datum/action/item_action) && A.CheckRemoval(new_character))
+					continue
 				A.Grant(new_character)
 	transfer_mindbound_actions(new_character)
 
